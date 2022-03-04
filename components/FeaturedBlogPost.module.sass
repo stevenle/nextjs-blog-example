@@ -1,0 +1,27 @@
+@use '../sass/breakpoints'
+
+.container
+  display: flex
+  flex-direction: column
+
+.content
+  padding-top: 40px
+  +breakpoints.laptop-gt
+    display: grid
+    grid-template-areas: "date body" "title body"
+    column-gap: 24px
+
+.title
+  font-size: 24px
+  font-weight: bold
+  line-height: 1.2
+  grid-area: title
+  margin-bottom: 20px
+  +breakpoints.tablet-lt
+    margin-bottom: 20px
+
+.date
+  grid-area: date
+
+.body
+  grid-area: body

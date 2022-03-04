@@ -1,0 +1,97 @@
+@use 'sass:math'
+@use './breakpoints'
+
+// 1728px is the max width for a 2021 MacBook Pro 16".
+$page-max-width: 1728px
+
+$grid-column-gap-mobile: 24px
+$grid-column-gap-tablet: 24px
+$grid-column-gap-laptop: 24px
+$grid-column-gap-desktop: 24px
+
+$grid-horizontal-padding-mobile: 16px
+$grid-horizontal-padding-tablet: 24px
+$grid-horizontal-padding-laptop: 24px
+
+$grid-max-width-tablet: 600px
+$grid-max-width-desktop: 1392px
+
+=container
+  display: grid
+  +breakpoints.mobile
+    // http://www.gstatic.com/store/images/living_styleguide/gstore-grid-rules-320px.png
+    column-gap: $grid-column-gap-mobile
+    grid-template-columns: repeat(4, 1fr)
+    padding: 0 $grid-horizontal-padding-mobile
+  +breakpoints.tablet
+    // http://www.gstatic.com/store/images/living_styleguide/gstore-grid-rules-600px.png
+    column-gap: $grid-column-gap-tablet
+    grid-template-columns: repeat(12, 1fr)
+    padding: 0 $grid-horizontal-padding-tablet
+    max-width: $grid-max-width-tablet
+    margin: 0 auto
+  +breakpoints.laptop
+    // http://www.gstatic.com/store/images/living_styleguide/gstore-grid-rules-1024px.png
+    column-gap: $grid-column-gap-laptop
+    grid-template-columns: repeat(12, 1fr)
+    padding: 0 $grid-horizontal-padding-laptop
+  +breakpoints.desktop
+    // http://www.gstatic.com/store/images/living_styleguide/gstore-grid-rules-1440px.png
+    column-gap: $grid-column-gap-desktop
+    grid-template-columns: repeat(12, 1fr)
+    margin: 0 auto
+    max-width: $grid-max-width-desktop
+
+=absolute
+  position: absolute
+  left: 0
+  width: 100%
+  +breakpoints.tablet
+    left: calc(50% - #{math.div($grid-max-width-tablet, 2)})
+  +breakpoints.desktop
+    left: calc(50% - #{math.div($grid-max-width-desktop, 2)})
+
+=mobile-fullwidth
+  margin-left: -$grid-horizontal-padding-mobile
+  margin-right: -$grid-horizontal-padding-mobile
+  width: calc(100% + #{$grid-horizontal-padding-mobile * 2})
+
+=range($start, $end)
+  grid-column-start: #{$start}
+  grid-column-end: span #{$end - $start + 1}
+
+// .grid-overlay
+//   height: 100vh
+//   left: 0
+//   pointer-events: none
+//   position: fixed
+//   top: 0
+//   width: 100%
+//   z-index: 2000
+//   +breakpoints.desktop
+//     left: calc(max(0px, 50% - #{math.div($page-max-width, 2)}))
+//     max-width: $page-max-width
+
+//   .grid
+//     height: 100%
+
+//   .grid__col
+//     grid-column-start: span 1
+//     background-color: rgba(cyan, 0.125)
+//     box-shadow: none !important
+//     color: black
+//     font-size: 12px
+//     font-weight: 800
+//     height: 100%
+//     padding-top: 12px
+//     text-align: center
+//     &:nth-child(5),
+//     &:nth-child(6),
+//     &:nth-child(7),
+//     &:nth-child(8),
+//     &:nth-child(9),
+//     &:nth-child(10),
+//     &:nth-child(11),
+//     &:nth-child(12)
+//       +breakpoints.mobile
+//         display: none
